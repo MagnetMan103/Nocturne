@@ -14,7 +14,7 @@ export default function MoodButton(props: { mood: Mood }) {
     }, [props.mood]);
 
     return (
-        <View style={styles.shadowContainer}>
+        <View style={[styles.shadowContainer, { shadowColor: colors[props.mood] }]}>
             <Pressable
                 onPressIn={() => setOpacity(0.7)}
                 onPressOut={() => setOpacity(1)}
@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     shadowContainer: {
-        shadowColor: 'rgba(0, 0, 0, 0.8)', // Default shadow color
         shadowOffset: { width: 0, height: 0 },
         shadowOpacity: 1,
         shadowRadius: 15,
@@ -56,5 +55,6 @@ const styles = StyleSheet.create({
         color: 'black',
     }
 });
+
 
 
