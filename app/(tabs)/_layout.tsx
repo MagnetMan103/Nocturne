@@ -32,6 +32,12 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="mood"
+        options={{
+          href:null
+        }}
+      />
     </Tabs>
   );
 }
