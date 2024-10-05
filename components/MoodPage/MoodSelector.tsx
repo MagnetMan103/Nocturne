@@ -7,6 +7,7 @@ export default function MoodSelector() {
     return (
         <View>
             <MoodButton mood={"Happy"} />
+            <MoodButton mood={"Sad"} />
         </View>
     )
 }
