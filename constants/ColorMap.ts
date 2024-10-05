@@ -1,4 +1,8 @@
 export const colors = {
+    "High energy unpleasant": '#FF4500',  // Red
+    "High energy pleasant": '#FFD700',    // Yellow
+    "Low energy unpleasant": '#4682B4',   // Blue
+    "Low energy pleasant": '#32CD32',     // Green
     "Happy": '#CCFFCC',        // Very Light Green
     "Sad": '#D1B3FF',          // Light Purple
     "Angry": '#FF9999',        // Light Red

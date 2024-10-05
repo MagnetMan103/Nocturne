@@ -2,18 +2,18 @@ import { Pressable, View, Text, StyleSheet } from "react-native";
 import {useEffect, useState} from "react";
 import {LinearGradient} from 'expo-linear-gradient';
 import {colors, Mood} from "@/constants/ColorMap";
+import {Link, router} from "expo-router";
 
 export default function MoodButton(props: { mood: Mood }) {
     const [opacity, setOpacity] = useState(1);
-    const [color, setColor] = useState('white');
-    useEffect(() => {
-        if (props.mood) {
-            setColor(colors[props.mood]);
-        }
-    }, [props.mood]);
 
     return (
         <View>
+            <Link
+                href={{
+                    pathname: '/mood',
+                    params: { mood: props.mood }
+                }} asChild>
             <Pressable
                 onPressIn={() => setOpacity(0.5)}
                 onPressOut={() => setOpacity(1)}
@@ -29,6 +29,7 @@ export default function MoodButton(props: { mood: Mood }) {
                 </Text>
             </LinearGradient>
             </Pressable>
+            </Link>
         </View>
     );
 }
