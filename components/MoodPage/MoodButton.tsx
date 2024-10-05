@@ -70,7 +70,8 @@ export default function MoodButton(props: { mood: Mood }) {
                 onPressOut={() => setOpacity(1)}
             >
                 <LinearGradient
-                    colors={['transparent', 'rgba(0,0,0,0.5)']}
+                    // Modify opacity for lighter colors to make them more vivid
+                    colors={['rgba(255,255,255,0.1)', 'rgba(0,0,0,0.3)']}  // Reduce transparency here
                     style={[styles.button, { opacity: opacity }, { backgroundColor: colors[props.mood] }]}
                 >
                     <Text style={styles.text}>
@@ -83,11 +84,6 @@ export default function MoodButton(props: { mood: Mood }) {
 }
 
 const styles = StyleSheet.create({
-    gridContainer: {
-        flexDirection: 'row',        // Arrange items horizontally first
-        flexWrap: 'wrap',            // Allow items to wrap to the next line
-        justifyContent: 'center',    // Center the buttons in the middle of the screen
-    },
     container: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -114,6 +110,8 @@ const styles = StyleSheet.create({
         color: 'black',
     }
 });
+
+
 
 
 
