@@ -132,8 +132,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     text: {
-        fontSize: 16,         // Adjusted font size to fit inside larger orb
-        fontWeight: "bold",
+        fontSize: 15,         // Adjusted font size to fit inside larger orb
+        fontWeight: "semibold",
         color: 'black',
         textAlign: 'center',  // Center-align text for multi-word mood names
     },
