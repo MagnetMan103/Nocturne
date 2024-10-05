@@ -1,6 +1,7 @@
 import { Pressable, View, Text, StyleSheet, Animated, Easing } from "react-native";
 import { useEffect, useState, useRef } from "react";
 import { LinearGradient } from 'expo-linear-gradient';
+import { Link } from "expo-router";
 
 // Updated color scheme for the new moods
 const colors: { [key: string]: string } = {
@@ -86,6 +87,11 @@ export default function MoodButton(props: { mood: keyof typeof colors }) {
                     style={styles.auraGradient}
                 />
             </Animated.View>
+            <Link
+                href={{
+                    pathname: '/moodchoice',
+                    params: { mood: props.mood }
+                }} asChild>
 
             {/* Orb (the actual mood button) */}
             <Pressable
@@ -101,7 +107,9 @@ export default function MoodButton(props: { mood: keyof typeof colors }) {
                     </Text>
                 </LinearGradient>
             </Pressable>
+            </Link>
         </View>
+
     );
 }
 

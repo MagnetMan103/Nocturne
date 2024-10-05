@@ -1,11 +1,14 @@
 import { View, Text, StyleSheet } from 'react-native';
 import MoodSelector from "@/components/MoodPage/MoodSelector";
+import {useState} from "react";
+import MoodGrid from "@/components/MoodPage/MoodGrid";
 
 
 export default function HomeScreen() {
+  const [active, setActive] = useState(false);
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'} }>
-      <MoodSelector />
+      <MoodSelector/>
     </View>
   );
 }
