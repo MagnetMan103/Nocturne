@@ -1,49 +1,66 @@
 import { Pressable, View, Text, StyleSheet, Animated, Easing } from "react-native";
 import { useEffect, useState, useRef } from "react";
 import { LinearGradient } from 'expo-linear-gradient';
-import { colors, Mood } from "@/constants/ColorMap";
 
-export default function MoodButton(props: { mood: Mood }) {
+// Updated color scheme for the new moods
+const colors: { [key: string]: string } = {
+    "High energy unpleasant": '#FF4500',  // Red
+    "High energy pleasant": '#FFD700',    // Yellow
+    "Low energy unpleasant": '#4682B4',   // Blue
+    "Low energy pleasant": '#32CD32',     // Green
+};
+
+// Function to get a gradient based on the base color of the orb (mood)
+const getMoodGradient = (baseColor: string) => {
+    return [
+        `${baseColor}99`, // Medium opacity in the center
+        `${baseColor}66`, // Lighter as it moves outward
+        `${baseColor}22`  // Almost invisible at the edges
+    ];
+};
+
+export default function MoodButton(props: { mood: keyof typeof colors }) {
     const [opacity, setOpacity] = useState(1);
-    const [color, setColor] = useState('white');
-    
+    const [color, setColor] = useState<string>(colors[props.mood]); // Default to the mood color
+
+    useEffect(() => {
+        // Set base color of the orb from the color map or provide a fallback color
+        setColor(colors[props.mood] || '#FFFFFF');  // Fallback to white if the mood is not found
+    }, [props.mood]);
+
     // Animation values for aura
     const auraScale = useRef(new Animated.Value(1)).current;
     const auraOpacity = useRef(new Animated.Value(0.5)).current;
 
+    // Start the pulsing animation (scale and opacity)
     useEffect(() => {
-        if (props.mood) {
-            setColor(colors[props.mood]);
-        }
-
-        // Start the aura pulsing animation (scale and opacity)
         Animated.loop(
             Animated.sequence([
                 Animated.parallel([
                     Animated.timing(auraScale, {
-                        toValue: 1.4, // Smaller scale to reduce blocking
+                        toValue: 1.4,  // Slight reduction in size for ethereal effect
                         duration: 1500,
-                        useNativeDriver: true,  // Native driver for scale
+                        useNativeDriver: true,
                         easing: Easing.inOut(Easing.ease),
                     }),
                     Animated.timing(auraOpacity, {
-                        toValue: 0, // Fade out completely
+                        toValue: 0.7,  // More visible glow effect
                         duration: 1500,
-                        useNativeDriver: true,  // Native driver for opacity
+                        useNativeDriver: true,
                         easing: Easing.inOut(Easing.ease),
                     }),
                 ]),
                 Animated.parallel([
                     Animated.timing(auraScale, {
-                        toValue: 1, // Return to original size
-                        duration: 1500,
-                        useNativeDriver: true,  // Native driver for scale
+                        toValue: 1.2,  // Flicker back to smaller size
+                        duration: 1200,
+                        useNativeDriver: true,
                         easing: Easing.inOut(Easing.ease),
                     }),
                     Animated.timing(auraOpacity, {
-                        toValue: 0.5, // Return to initial opacity
-                        duration: 1500,
-                        useNativeDriver: true,  // Native driver for opacity
+                        toValue: 0.4,  // Softer opacity flicker
+                        duration: 1200,
+                        useNativeDriver: true,
                         easing: Easing.inOut(Easing.ease),
                     }),
                 ]),
@@ -53,25 +70,30 @@ export default function MoodButton(props: { mood: Mood }) {
 
     return (
         <View style={styles.container}>
-            {/* Aura View */}
+            {/* Ethereal Aura View */}
             <Animated.View
                 style={[
                     styles.aura,
                     {
-                        backgroundColor: colors[props.mood],  // Use mood color for the aura
-                        opacity: auraOpacity,                 // Animate aura opacity
-                        transform: [{ scale: auraScale }],    // Animate aura scale
+                        opacity: auraOpacity,
+                        transform: [{ scale: auraScale }],
                     }
                 ]}
-            />
+            >
+                {/* Dynamic Gradient for Aura based on mood color */}
+                <LinearGradient
+                    colors={getMoodGradient(colors[props.mood] || '#FFFFFF')}  // Fallback to white if mood not found
+                    style={styles.auraGradient}
+                />
+            </Animated.View>
+
             {/* Orb (the actual mood button) */}
             <Pressable
                 onPressIn={() => setOpacity(0.7)}
                 onPressOut={() => setOpacity(1)}
             >
                 <LinearGradient
-                    // Modify opacity for lighter colors to make them more vivid
-                    colors={['rgba(255,255,255,0.1)', 'rgba(0,0,0,0.3)']}  // Reduce transparency here
+                    colors={['rgba(255,255,255,0.1)', 'rgba(0,0,0,0.3)']}  // Background gradient for the orb
                     style={[styles.button, { opacity: opacity }, { backgroundColor: colors[props.mood] }]}
                 >
                     <Text style={styles.text}>
@@ -87,37 +109,33 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 10, // Reduce margin to avoid too much spacing between buttons
+        margin: 10,
     },
     aura: {
-        position: 'absolute', // Positioned around the orb
-        width: 120,           // Smaller than before for reduced size
-        height: 120,
-        borderRadius: 60,     // Fully rounded
+        position: 'absolute',
+        width: 110,           // Moderately reduced aura size for balance
+        height: 110,
+        borderRadius: 55,     // Fully rounded aura
+    },
+    auraGradient: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 55,  // Rounded shape for the aura
     },
     button: {
-        width: 100,           // Reduced size of the orbs
-        height: 100,
-        padding: 10,
+        width: 120,           // Increased orb size to fit the text
+        height: 120,
+        padding: 15,          // Increased padding for text fitting
         margin: 5,
-        borderRadius: 50,     // Fully rounded
+        borderRadius: 60,     // Fully rounded button (orb)
         alignItems: 'center',
         justifyContent: 'center',
     },
     text: {
-        fontSize: 20,         // Slightly smaller text to fit the new size
+        fontSize: 16,         // Adjusted font size to fit inside larger orb
         fontWeight: "bold",
         color: 'black',
-    }
+        textAlign: 'center',  // Center-align text for multi-word mood names
+    },
 });
-
-
-
-
-
-
-
-
-
-
 
