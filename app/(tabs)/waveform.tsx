@@ -67,14 +67,14 @@ const CircleWaveVisualizer = () => {
     }
   }
 
-  // HTML content with enhanced concentric circles for dramatic expansion and contraction
+  // HTML content with enhanced sinusoidal circles for dramatic expansion and contraction
   const webviewContent = `
     <!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Circle Wave Visualizer</title>
+      <title>Sinusoidal Circle Wave Visualizer</title>
       <style>
         body, html {
           margin: 0;
@@ -105,31 +105,42 @@ const CircleWaveVisualizer = () => {
           canvas.height = height;
         }
 
-        function drawConcentricCircles() {
+        function drawSinusoidalCircles() {
           ctx.clearRect(0, 0, width, height);
 
           const centerX = width / 2;
           const centerY = height / 2;
           const maxRadius = Math.min(width, height) / 1.5;   // Increased max radius to be larger
-          const numCircles = 7;  // Number of concentric circles
+          const numCircles = 7;  // Number of concentric sinusoidal waves
           
-          // Adjust the spacing between circles based on volume
+          // Adjust the spacing between sinusoids based on volume
           const baseSpacing = maxRadius / numCircles;
           const breathingFactor = volume * 1.5 + 0.5;  // Dramatic breathing effect (adjusted)
+          const sineFrequency = 10; // Frequency of the sinusoidal wave
+          const sineAmplitude = 10 * volume;  // Amplitude of the sinusoidal distortion
 
           for (let i = 0; i < numCircles; i++) {
-            // As the volume increases, inner circles grow more, and outer circles grow less
+            // As the volume increases, inner waves grow more, and outer waves grow less
             const dynamicSpacing = baseSpacing * (1 - i / numCircles) * breathingFactor;
             const radius = (i + 1) * dynamicSpacing;
 
             ctx.beginPath();
-            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2, false);
+            for (let angle = 0; angle <= Math.PI * 2; angle += 0.01) {
+              const x = centerX + (radius + Math.sin(angle * sineFrequency) * sineAmplitude) * Math.cos(angle);
+              const y = centerY + (radius + Math.sin(angle * sineFrequency) * sineAmplitude) * Math.sin(angle);
+              if (angle === 0) {
+                ctx.moveTo(x, y);
+              } else {
+                ctx.lineTo(x, y);
+              }
+            }
+
             ctx.strokeStyle = 'violet';
             ctx.lineWidth = 4;  // Increased line width for better visibility
             ctx.stroke();
           }
 
-          requestAnimationFrame(drawConcentricCircles);
+          requestAnimationFrame(drawSinusoidalCircles);
         }
 
         window.addEventListener('resize', resizeCanvas);
@@ -142,7 +153,7 @@ const CircleWaveVisualizer = () => {
         });
 
         resizeCanvas();
-        drawConcentricCircles();
+        drawSinusoidalCircles();
       </script>
     </body>
     </html>
