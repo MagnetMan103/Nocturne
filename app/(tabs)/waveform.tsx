@@ -1,31 +1,58 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Button, Text } from 'react-native';
+import { View, Text } from 'react-native';
+import {Button} from 'react-native-paper'
 import { Audio } from 'expo-av';
 import { WebView } from 'react-native-webview';
-import { Asset } from 'expo-asset';
+import {useLocalSearchParams} from "expo-router";
 
 const CircleWaveVisualizer = () => {
   const [sound, setSound] = useState<Audio.Sound | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [volume, setVolume] = useState(0);
   const webviewRef = useRef<WebView>(null);
+  const searchParams = useLocalSearchParams();
 
-  // Load the local MP3 file from the assets folder
-  useEffect(() => {
-    async function loadAudioAsset() {
-      const asset = Asset.fromModule(require('../../assets/example.mp3'));
-      await asset.downloadAsync();  // Ensure the asset is ready for playback
-      return asset.localUri;
+  const warmUpIPFS = async (url: string) => {
+    try {
+      await fetch(url, { method: "HEAD" });
+      console.log("Warm-up successful");
+    } catch (error) {
+      console.error("Warm-up failed:", error);
     }
-
-    loadAudioAsset().then((uri) => {
-      if (uri) {
-        // Set the audio file URI in the playSound function
-        playSound(uri);
-      } else {
-        console.error("Failed to load the audio asset.");
+  };
+  useEffect( () => {
+    const url = `https://${searchParams.id}`
+    console.log(url)
+    async function Playing() {
+      await warmUpIPFS(url);
+      try {
+        playSound(url)
+        // setSound(sound);
+        console.log('Playing Sound');
+        // await sound.playAsync();
+      } catch (error) {
+        console.error('Error loading or playing sound:', error);
       }
-    });
+    }
+    Playing().then(() => {
+      console.log('Playing Sound');
+  });
+
+    // playSound(searchParams.id as string);
+    // async function loadAudioAsset() {
+    //   const asset = Asset.fromModule(require('../../assets/example.mp3'));
+    //   await asset.downloadAsync();  // Ensure the asset is ready for playback
+    //   return asset.localUri;
+    // }
+    //
+    // loadAudioAsset().then((uri) => {
+    //   if (uri) {
+    //     // Set the audio file URI in the playSound function
+    //     playSound(searchParams.id);
+    //   } else {
+    //     console.error("Failed to load the audio asset.");
+    //   }
+    // });
   }, []);
 
   useEffect(() => {
@@ -168,7 +195,7 @@ const CircleWaveVisualizer = () => {
   `;
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: 'black' }}>
       <View style={{ flex: 1 }}>
         <WebView
           ref={webviewRef}
@@ -179,9 +206,11 @@ const CircleWaveVisualizer = () => {
           domStorageEnabled={true}
         />
       </View>
-      <View style={{ padding: 20 }}>
-        <Button title={isPlaying ? "Pause Sound" : "Play Sound"} onPress={() => playSound()} />
-        <Text>{isPlaying ? "Playing..." : "Paused"}</Text>
+      <View style={{ marginBottom: 100, padding: 20, backgroundColor: 'black', alignItems: 'center' }}>
+        <Button style={{backgroundColor:'lightblue', width: 200}} onPress={() => playSound()}
+                theme={{ colors: {text: '#E0B0FF' } }}>
+          {isPlaying ? "Pause Sound" : "Play Sound"}
+        </Button>
       </View>
     </View>
   );

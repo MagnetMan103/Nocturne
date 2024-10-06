@@ -1,9 +1,12 @@
-import { useLocalSearchParams } from "expo-router";
+import {router, useLocalSearchParams} from "expo-router";
+import React from 'react';
 import { View, Text } from "react-native";
 import { getColor } from "@/constants/ColorMap";
 import {LinearGradient} from "expo-linear-gradient";
 import { TextInput, Button } from 'react-native-paper';
 import {useState} from "react";
+import {setState} from "jest-circus";
+import {Audio} from "expo-av";
 
 
 type Color = `#${string}`;
@@ -16,9 +19,34 @@ export default function Mood() {
     // @ts-ignore
     const myColor = getColor(params.mood) as Color;
 
-    const onPress = () => {
+    const songData = {
+        text: text,
+        user_id: 1,
+        mood: params.mood,
+        genre: [],
+        duration: 10
+
+    }
+    const onPress = async () => {
         setEnabled(false);
         setGenState("Generating...");
+
+        await fetch("http://35.194.89.40/api/queries/", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(songData)
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        }).then(data => {
+            console.log(data)
+
+            router.push({ pathname: '/waveform', params: { id: data["pinata_url"] } });
+        })
     }
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'black' }}>
@@ -49,4 +77,8 @@ function titleCase(str: string): string {
     return str.toLowerCase().split(' ').map(function(word) {
         return word.replace(word[0], word[0].toUpperCase());
     }).join(' ');
+}
+
+function sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

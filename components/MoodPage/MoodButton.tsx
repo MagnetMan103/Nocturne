@@ -2,6 +2,7 @@ import { Pressable, View, Text, StyleSheet, Animated, Easing } from "react-nativ
 import { useEffect, useState, useRef } from "react";
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link } from "expo-router";
+import React from "react";
 
 // Updated color scheme for the new moods
 const colors: { [key: string]: string } = {

@@ -47,10 +47,7 @@ export default function TabLayout() {
                 <Tabs.Screen
                     name="explore"
                     options={{
-                        title: 'Explore',
-                        tabBarIcon: ({ color, focused }) => (
-                            <FontAwesome name="search" size={24} color={focused ? 'black' : 'gray'} />
-                        ),
+                        href: null,
                     }}
                 />
                 <Tabs.Screen
@@ -64,6 +61,12 @@ export default function TabLayout() {
                     options={{
                         href: null,
                         tabBarStyle: { display: 'none' },
+                    }}
+                />
+                <Tabs.Screen
+                    name="waveform"
+                    options={{
+                        href: null,
                     }}
                 />
                 <Tabs.Screen

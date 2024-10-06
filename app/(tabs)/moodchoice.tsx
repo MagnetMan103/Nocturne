@@ -2,6 +2,7 @@ import MoodGrid from "@/components/MoodPage/MoodGrid";
 import {Pressable, View} from "react-native";
 import {router} from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import React from "react";
 
 
 export default function MoodChoice() {

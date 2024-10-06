@@ -4,6 +4,7 @@ import MoonBox from '@/components/MoodPage/MoonBox';
 import {useLocalSearchParams} from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons"; // Import useFocusEffect
 import {router} from "expo-router";
+import React from "react";
 
 const coordDict = {
     "Low energy unpleasant": [200, 200],

@@ -72,7 +72,7 @@ export default function Settings() {
                 <Text style={styles.label}>Select Song Length ({formatTime(songLength)})</Text>
                 <Slider
                     style={styles.slider}
-                    minimumValue={30}  // 30 seconds
+                    minimumValue={10}  // 30 seconds
                     maximumValue={300}  // 5 minutes (300 seconds)
                     step={15}  // 15-second intervals
                     value={songLength}
