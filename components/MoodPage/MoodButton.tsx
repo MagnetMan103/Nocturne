@@ -5,10 +5,10 @@ import { Link } from "expo-router";
 
 // Updated color scheme for the new moods
 const colors: { [key: string]: string } = {
-    "High energy unpleasant": '#FF4500',  // Red
-    "High energy pleasant": '#FFD700',    // Yellow
-    "Low energy unpleasant": '#4682B4',   // Blue
-    "Low energy pleasant": '#32CD32',     // Green
+    "Low energy unpleasant": '#4682B4',  // Red
+    "High energy unpleasant": '#FF4500',    // Yellow
+    "Low energy pleasant": '#32CD32',   // Blue
+    "High energy pleasant": '#FFD700',     // Green
 };
 
 // Function to get a gradient based on the base color of the orb (mood)

@@ -9,10 +9,11 @@ export default function MoodSelector() {
       }}>Select your mood</Text>
       </View>
       <View style={styles.buttonGrid}>
-        <MoodButton mood="High energy unpleasant" />
-        <MoodButton mood="High energy pleasant" />
         <MoodButton mood="Low energy unpleasant" />
+        <MoodButton mood="High energy unpleasant" />
         <MoodButton mood="Low energy pleasant" />
+        <MoodButton mood="High energy pleasant" />
+
       </View>
     </View>
   );

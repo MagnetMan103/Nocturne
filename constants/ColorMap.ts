@@ -143,6 +143,14 @@ export const emotionArray = [
 
 
 
+// return the value pair for a key input from the emotionArray
+
+export function getColor(key: string) {
+     const object = emotionArray.find((element) => Object.keys(element)[0] === key)
+    // return the first value of the object
+    // @ts-ignore
+    return Object.values(object)[0]
+}
 
 
 

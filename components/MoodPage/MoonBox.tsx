@@ -1,7 +1,6 @@
 import { Pressable, View, Text, StyleSheet } from "react-native";
 import {useEffect, useState} from "react";
 import {LinearGradient} from 'expo-linear-gradient';
-import {colors, getCorrespondingColor, Mood} from "@/constants/ColorMap";
 import {Link, router} from "expo-router";
 
 
@@ -12,7 +11,6 @@ export type EmotionObject = {
 };
 
 export default function MoodButton(props: { mood: EmotionObject }) {
-    console.log(props.mood);
     const [opacity, setOpacity] = useState(1);
     const moodKey = Object.keys(props.mood)[0] as keyof typeof props.mood;
     const moodValue = props.mood[moodKey] as unknown as HexCode; // Cast to unknown first, then to HexCode
