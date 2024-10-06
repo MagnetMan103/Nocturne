@@ -1,18 +1,27 @@
 import { Pressable, View, Text, StyleSheet } from "react-native";
 import {useEffect, useState} from "react";
 import {LinearGradient} from 'expo-linear-gradient';
-import {colors, Mood} from "@/constants/ColorMap";
+import {colors, getCorrespondingColor, Mood} from "@/constants/ColorMap";
 import {Link, router} from "expo-router";
 
-export default function MoodButton(props: { mood: Mood }) {
-    const [opacity, setOpacity] = useState(1);
 
+type HexCode = `#${string}`;
+
+export type EmotionObject = {
+    [emotion: string]: string;  // Key is an emotion (string), and value is the hex color code (string)
+};
+
+export default function MoodButton(props: { mood: EmotionObject }) {
+    console.log(props.mood);
+    const [opacity, setOpacity] = useState(1);
+    const moodKey = Object.keys(props.mood)[0] as keyof typeof props.mood;
+    const moodValue = props.mood[moodKey] as unknown as HexCode; // Cast to unknown first, then to HexCode
     return (
         <View>
             <Link
                 href={{
                     pathname: '/mood',
-                    params: { mood: props.mood }
+                    params: { mood: moodKey }
                 }} asChild>
                 <Pressable
                     onPressIn={() => setOpacity(0.5)}
@@ -22,10 +31,10 @@ export default function MoodButton(props: { mood: Mood }) {
                     <LinearGradient
                         // Background Linear Gradient
                         colors={['transparent', 'rgba(0,0,0,0.5)']}
-                        style={[styles.button, {opacity: opacity}, {backgroundColor: colors[props.mood]}]}
+                        style={[styles.button, {opacity: opacity}, {backgroundColor: moodValue as HexCode}]}
                     >
-                        <Text style={{fontSize: 25, fontWeight: "bold", color: 'black'}}>
-                            {props.mood}
+                        <Text style={{fontSize: 17, fontWeight: "bold", color: 'black', textAlign: 'center'}}>
+                            {moodKey}
                         </Text>
                     </LinearGradient>
                 </Pressable>
@@ -36,11 +45,11 @@ export default function MoodButton(props: { mood: Mood }) {
 
 const styles = StyleSheet.create({
     button: {
-        width: 200,
-        height: 200,
+        width: 150,
+        height: 150,
         padding: 10,
         margin: 5,
-        borderRadius: 100,
+        borderRadius: 75,
         alignItems: 'center',
         justifyContent: 'center',
     }

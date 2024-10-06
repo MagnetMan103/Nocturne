@@ -1,7 +1,7 @@
-import { colors, Mood, emotions } from '@/constants/ColorMap';
+import { emotionArray } from '@/constants/ColorMap';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import MoonBox from '@/components/MoodPage/MoonBox';
-import { useRef } from 'react';
+import MoonBox, {EmotionObject} from '@/components/MoodPage/MoonBox';
+import {useRef, useState} from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import {useLocalSearchParams} from "expo-router"; // Import useFocusEffect
 
@@ -14,14 +14,9 @@ const coordDict = {
 
 
 export default function MoodGrid() {
-    const colorArray = Object.keys(colors);
     const params = useLocalSearchParams<{mood: string}>();
-    const rows = [...Array(Math.ceil(colorArray.length / 5))].map((_, i) =>
-        colorArray.slice(i * 5, i * 5 + 5)
-    );
     const coords = coordDict[params.mood as keyof typeof coordDict];
     // This will run every time the screen is focused
-
     return (
         <ScrollView
             showsVerticalScrollIndicator={false}
@@ -31,17 +26,22 @@ export default function MoodGrid() {
             <View
                 style={{
                     backgroundColor: 'white',
-                    height: 1500,
-                    width: 1500,
+                    height: 2200,
+                    width: 2200,
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}
             >
-                {rows.map((row, rowIndex) => (
+                {Array.from({ length: 12 }).map((row, rowIndex) => (
                     <View key={rowIndex} style={styles.row}>
-                        {row.map((color, colIndex) => (
-                            <MoonBox key={colIndex} mood={color as Mood} />
-                        ))}
+                        {Array.from({ length: 12 }).map((number, colIndex) => {
+                            const emotion = emotionArray[rowIndex * 12 + colIndex];
+                            if (emotion !== undefined) {
+                                return <MoonBox key={colIndex} mood={emotion} />;
+                            }
+                            console.log('failed')
+                            return null;
+                        })}
                     </View>
                 ))}
             </View>
@@ -54,3 +54,24 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
 });
+
+function getColorIndex(colIndex: number, rowIndex: number) {
+    if (rowIndex < 6) {
+        if (colIndex < 6) {
+            return "blue"
+        }
+        else {
+            return "red"
+        }
+    }
+    else {
+        if (colIndex < 6) {
+            return "yellow"
+        }
+        else {
+            return "green"
+        }
+    }
+}
+
+

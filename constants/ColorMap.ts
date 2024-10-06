@@ -1,180 +1,150 @@
-export const colors = {
-    "Happy": '#FFD700',        // Golden yellow for happiness
-    "Sad": '#9370DB',          // Purple for sadness
-    "Angry": '#FF4500',        // Fiery red for anger
-    "Excited": '#FF8C00',      // Orange for excitement
-    "Calm": '#4682B4',         // Calm blue for peacefulness
-    "Fearful": '#FF6347',      // Tomato red for fear
-    "Surprised": '#FFB6C1',    // Light pink for surprise
-    "Anxious": '#FF1493',      // Deep pink for anxiety
-    "Bored": '#808080',        // Gray for boredom
-    "Confident": '#32CD32',    // Lime green for confidence
-    "Embarrassed": '#FF69B4',  // Hot pink for embarrassment
-    "Jealous": '#9ACD32',      // Yellow-green for jealousy
-    "Grateful": '#FFDAB9',     // Peach for gratefulness
-    "Lonely": '#A9A9A9',       // Dark gray for loneliness
-    "Motivated": '#00FA9A',    // Medium spring green for motivation
-    "Nostalgic": '#D2691E',    // Chocolate brown for nostalgia
-    "Hopeful": '#87CEEB',      // Sky blue for hope
-    "Stressed": '#B22222',     // Firebrick red for stress
-    "Curious": '#FF4500',      // Fiery orange-red for curiosity
-    "Proud": '#DAA520',        // Goldenrod for pride
-};
+export const emotionArray = [
+    { "disgusted": "#0000FF" },
+    { "trapped": "#1E90FF" },
+    { "insecure": "#4682B4" },
+    { "disheartened": "#4169E1" },
+    { "down": "#5F9EA0" },
+    { "bored": "#00BFFF" },
+    { "enraged": "#FF0000" },
+    { "terrified": "#C8102E" },
+    { "panicked": "#B22222" },
+    { "shocked": "#FF4500" },
+    { "impassioned": "#DC143C" },
+    { "hyper": "#FF6347" },
+    { "humiliated": "#6495ED" },
+    { "ashamed": "#00CED1" },
+    { "lost": "#00BFFF" },
+    { "disappointed": "#ADD8E6" },
+    { "meh": "#B0E0E6" },
+    { "tired": "#87CEEB" },
+    { "livid": "#8B0000" },
+    { "irate": "#B22222" },
+    { "overwhelmed": "#FF7F50" },
+    { "stressed": "#CD5C5C" },
+    { "annoyed": "#FF8C00" },
+    { "pressured": "#FF1493" },
+    { "pessimistic": "#4682B4" },
+    { "vulnerable": "#00BFFF" },
+    { "disconnected": "#00BFFF" },
+    { "forlorn": "#00BFFF" },
+    { "sad": "#6A5ACD" },
+    { "fatigued": "#708090" },
+    { "furious": "#FF4500" },
+    { "frightened": "#FF6347" },
+    { "anxious": "#FFB6C1" },
+    { "apprehensive": "#FF69B4" },
+    { "irritated": "#FF7F50" },
+    { "restless": "#FF6347" },
+    { "guilty": "#4682B4" },
+    { "numb": "#00BFFF" },
+    { "excluded": "#00CED1" },
+    { "spent": "#7B68EE" },
+    { "discouraged": "#8A2BE2" },
+    { "disengaged": "#00BFFF" },
+    { "jealous": "#FF1493" },
+    { "scared": "#FF4500" },
+    { "angry": "#C72C41" },
+    { "jittery": "#D50032" },
+    { "fomo": "#FF4500" },
+    { "confused": "#FF8C00" },
+    { "depressed": "#1E90FF" },
+    { "hopeless": "#6495ED" },
+    { "alienated": "#1E90FF" },
+    { "nostalgic": "#1E90FF" },
+    { "lonely": "#00CED1" },
+    { "apathetic": "#87CEEB" },
+    { "envious": "#FF6347" },
+    { "repulsed": "#8B0000" },
+    { "frustrated": "#C8102E" },
+    { "embarrassed": "#FF69B4" },
+    { "concerned": "#DC143C" },
+    { "tense": "#FF4500" },
+    { "miserable": "#B0E0E6" },
+    { "despair": "#B0C4DE" },
+    { "glum": "#4682B4" },
+    { "burned out": "#6A5ACD" },
+    { "exhausted": "#1E90FF" },
+    { "helpless": "#1E90FF" },
+        { "disgusted": "#A52A2A" },    // Brown
+        { "resentful": "#C72C41" },    // Strong Red
+        { "disturbed": "#9B2226" },     // Dark Red
+        { "offended": "#B22222" },     // Firebrick
+        { "irritated": "#C8102E" },     // Dark Red
+        { "scorned": "#8B0000" },       // Dark Red
 
-export const emotions = {
-    red: [
-        { emotion: "enraged", hex: "#FF0000" },  // Bright Red
-        { emotion: "terrified", hex: "#C8102E" }, // Dark Red
-        { emotion: "panicked", hex: "#B22222" },  // Firebrick Red
-        { emotion: "shocked", hex: "#FF4500" },   // Orange Red
-        { emotion: "impassioned", hex: "#DC143C" }, // Crimson
-        { emotion: "hyper", hex: "#FF6347" },     // Tomato
-        { emotion: "livid", hex: "#8B0000" },     // Dark Red
-        { emotion: "irate", hex: "#B22222" },     // Firebrick
-        { emotion: "overwhelmed", hex: "#FF7F50" }, // Coral
-        { emotion: "stressed", hex: "#CD5C5C" },  // Indian Red
-        { emotion: "annoyed", hex: "#FF8C00" },   // Dark Orange
-        { emotion: "pressured", hex: "#FF1493" }, // Deep Pink
-        { emotion: "furious", hex: "#FF4500" },   // Orange Red
-        { emotion: "frightened", hex: "#FF6347" }, // Tomato
-        { emotion: "anxious", hex: "#FFB6C1" },   // Light Pink
-        { emotion: "apprehensive", hex: "#FF69B4" }, // Hot Pink
-        { emotion: "irritated", hex: "#FF7F50" },  // Coral
-        { emotion: "restless", hex: "#FF6347" },   // Tomato
-        { emotion: "jealous", hex: "#FF1493" },    // Deep Pink
-        { emotion: "scared", hex: "#FF4500" },     // Orange Red
-        { emotion: "angry", hex: "#C72C41" },       // Strong Red
-        { emotion: "jittery", hex: "#D50032" },     // Red-Orange
-        { emotion: "fomo", hex: "#FF4500" },       // Orange Red
-        { emotion: "confused", hex: "#FF8C00" },   // Dark Orange
-        { emotion: "envious", hex: "#FF6347" },    // Tomato
-        { emotion: "repulsed", hex: "#8B0000" },   // Dark Red
-        { emotion: "frustrated", hex: "#C8102E" }, // Dark Red
-        { emotion: "embarrassed", hex: "#FF69B4" }, // Hot Pink
-        { emotion: "concerned", hex: "#DC143C" },  // Crimson
-        { emotion: "tense", hex: "#FF4500" },      // Orange Red
-        { emotion: "contempt", hex: "#B22222" },   // Firebrick
-        { emotion: "troubled", hex: "#FF6347" },   // Tomato
-        { emotion: "worried", hex: "#CD5C5C" },    // Indian Red
-        { emotion: "nervous", hex: "#FF1493" },    // Deep Pink
-        { emotion: "peeved", hex: "#FF7F50" },     // Coral
-        { emotion: "uneasy", hex: "#C72C41" },      // Strong Red
-    ],
-    blue: [
-        { emotion: "disgusted", hex: "#0000FF" },  // Blue
-        { emotion: "trapped", hex: "#1E90FF" },    // Dodger Blue
-        { emotion: "insecure", hex: "#4682B4" },   // Steel Blue
-        { emotion: "disheartened", hex: "#4169E1" }, // Royal Blue
-        { emotion: "down", hex: "#5F9EA0" },        // Cadet Blue
-        { emotion: "bored", hex: "#00BFFF" },      // Deep Sky Blue
-        { emotion: "humiliated", hex: "#6495ED" }, // Cornflower Blue
-        { emotion: "ashamed", hex: "#00CED1" },    // Dark Turquoise
-        { emotion: "lost", hex: "#00BFFF" },        // Deep Sky Blue
-        { emotion: "disappointed", hex: "#ADD8E6" }, // Light Blue
-        { emotion: "meh", hex: "#B0E0E6" },         // Powder Blue
-        { emotion: "tired", hex: "#87CEEB" },       // Sky Blue
-        { emotion: "pessimistic", hex: "#4682B4" }, // Steel Blue
-        { emotion: "vulnerable", hex: "#B0E0E6" },  // Powder Blue
-        { emotion: "disconnected", hex: "#A9A9A9" }, // Dark Gray
-        { emotion: "forlorn", hex: "#778899" },    // Light Slate Gray
-        { emotion: "sad", hex: "#6A5ACD" },         // Slate Blue
-        { emotion: "fatigued", hex: "#708090" },    // Slate Gray
-        { emotion: "guilty", hex: "#4682B4" },      // Steel Blue
-        { emotion: "numb", hex: "#B0C4DE" },        // Light Steel Blue
-        { emotion: "excluded", hex: "#00CED1" },    // Dark Turquoise
-        { emotion: "spent", hex: "#7B68EE" },       // Medium Slate Blue
-        { emotion: "discouraged", hex: "#8A2BE2" }, // Blue Violet
-        { emotion: "disengaged", hex: "#00BFFF" },  // Deep Sky Blue
-        { emotion: "depressed", hex: "#4682B4" },   // Steel Blue
-        { emotion: "hopeless", hex: "#6495ED" },    // Cornflower Blue
-        { emotion: "alienated", hex: "#5F9EA0" },    // Cadet Blue
-        { emotion: "nostalgic", hex: "#1E90FF" },   // Dodger Blue
-        { emotion: "lonely", hex: "#00CED1" },      // Dark Turquoise
-        { emotion: "apathetic", hex: "#87CEEB" },   // Sky Blue
-        { emotion: "miserable", hex: "#B0E0E6" },    // Powder Blue
-        { emotion: "despair", hex: "#B0C4DE" },     // Light Steel Blue
-        { emotion: "glum", hex: "#4682B4" },        // Steel Blue
-        { emotion: "burned out", hex: "#6A5ACD" },  // Slate Blue
-        { emotion: "exhausted", hex: "#708090" },   // Slate Gray
-        { emotion: "helpless", hex: "#778899" },    // Light Slate Gray
-    ],
-    yellow: [
-        { emotion: "surprised", hex: "#FFFF00" },   // Yellow
-        { emotion: "awe", hex: "#FFD700" },         // Gold
-        { emotion: "exhilarated", hex: "#FFFACD" }, // Lemon Chiffon
-        { emotion: "thrilled", hex: "#FFFFE0" },    // Light Yellow
-        { emotion: "elated", hex: "#FFEFD5" },      // Papaya Whip
-        { emotion: "ecstatic", hex: "#F0E68C" },    // Khaki
-        { emotion: "excited", hex: "#FFF8DC" },     // Cornsilk
-        { emotion: "determined", hex: "#FFEA00" },  // Bright Yellow
-        { emotion: "successful", hex: "#FFE135" },  // Banana Yellow
-        { emotion: "amazed", hex: "#F4D03F" },      // Sunflower Yellow
-        { emotion: "inspired", hex: "#F9E79F" },     // Light Sunflower
-        { emotion: "empowered", hex: "#F5E05B" },   // Daffodil Yellow
-        { emotion: "energized", hex: "#FFD700" },   // Gold
-        { emotion: "eager", hex: "#FFF8DC" },       // Cornsilk
-        { emotion: "enthusiastic", hex: "#F0E68C" }, // Khaki
-        { emotion: "joyful", hex: "#FFEFD5" },      // Papaya Whip
-        { emotion: "productive", hex: "#FFFFE0" },  // Light Yellow
-        { emotion: "proud", hex: "#F4D03F" },       // Sunflower Yellow
-        { emotion: "cheerful", hex: "#FFEA00" },    // Bright Yellow
-        { emotion: "curious", hex: "#FFFACD" },     // Lemon Chiffon
-        { emotion: "upbeat", hex: "#FFE135" },      // Banana Yellow
-        { emotion: "happy", hex: "#F9E79F" },       // Light Sunflower
-        { emotion: "motivated", hex: "#F5E05B" },   // Daffodil Yellow
-        { emotion: "optimistic", hex: "#FFD700" },  // Gold
-        { emotion: "pleasant", hex: "#FFFF00" },    // Yellow
-        { emotion: "focused", hex: "#FFEFD5" },     // Papaya Whip
-        { emotion: "alive", hex: "#FFEA00" },       // Bright Yellow
-        { emotion: "confident", hex: "#FFFACD" },   // Lemon Chiffon
-        { emotion: "engaged", hex: "#F4D03F" },      // Sunflower Yellow
-        { emotion: "challenged", hex: "#F5E05B" },   // Daffodil Yellow
-        { emotion: "pleased", hex: "#FFE135" },     // Banana Yellow
-        { emotion: "playful", hex: "#FFD700" },     // Gold
-        { emotion: "delighted", hex: "#FFFFE0" },   // Light Yellow
-        { emotion: "wishful", hex: "#FFFACD" },     // Lemon Chiffon
-        { emotion: "hopeful", hex: "#F9E79F" },      // Light Sunflower
-        { emotion: "accomplished", hex: "#F4D03F" }, // Sunflower Yellow
-    ],
-    green: [
-        { emotion: "calm", hex: "#008000" },        // Green
-        { emotion: "at ease", hex: "#3CB371" },     // Medium Sea Green
-        { emotion: "understood", hex: "#4CAF50" },  // Green
-        { emotion: "respected", hex: "#66CDAA" },   // Medium Aquamarine
-        { emotion: "fulfilled", hex: "#2E8B57" },    // Sea Green
-        { emotion: "blissful", hex: "#32CD32" },    // Lime Green
-        { emotion: "good", hex: "#9ACD32" },        // Yellow Green
-        { emotion: "thoughtful", hex: "#7FFF00" },  // Chartreuse
-        { emotion: "appreciated", hex: "#98FB98" }, // Pale Green
-        { emotion: "supported", hex: "#3CB371" },    // Medium Sea Green
-        { emotion: "loved", hex: "#00FF7F" },       // Spring Green
-        { emotion: "connected", hex: "#20B2AA" },   // Light Sea Green
-        { emotion: "relaxed", hex: "#90EE90" },     // Light Green
-        { emotion: "chill", hex: "#00FA9A" },       // Medium Spring Green
-        { emotion: "compassionate", hex: "#2E8B57" }, // Sea Green
-        { emotion: "included", hex: "#66CDAA" },     // Medium Aquamarine
-        { emotion: "valued", hex: "#98FB98" },      // Pale Green
-        { emotion: "grateful", hex: "#8FBC8F" },    // Dark Sea Green
-        { emotion: "sympathetic", hex: "#3CB371" }, // Medium Sea Green
-        { emotion: "comfortable", hex: "#7CFC00" },  // Lawn Green
-        { emotion: "empathetic", hex: "#98FB98" },  // Pale Green
-        { emotion: "content", hex: "#00FF7F" },     // Spring Green
-        { emotion: "accepted", hex: "#2E8B57" },    // Sea Green
-        { emotion: "moved", hex: "#66CDAA" },       // Medium Aquamarine
-        { emotion: "mellow", hex: "#9ACD32" },      // Yellow Green
-        { emotion: "peaceful", hex: "#8FBC8F" },    // Dark Sea Green
-        { emotion: "balanced", hex: "#90EE90" },    // Light Green
-        { emotion: "safe", hex: "#3CB371" },        // Medium Sea Green
-        { emotion: "secure", hex: "#2E8B57" },      // Sea Green
-        { emotion: "blessed", hex: "#00FF7F" },     // Spring Green
-        { emotion: "carefree", hex: "#66CDAA" },    // Medium Aquamarine
-        { emotion: "tranquil", hex: "#90EE90" },    // Light Green
-        { emotion: "thankful", hex: "#3CB371" },    // Medium Sea Green
-        { emotion: "relieved", hex: "#2E8B57" },    // Sea Green
-        { emotion: "satisfied", hex: "#00FF7F" },    // Spring Green
-        { emotion: "serene", hex: "#8FBC8F" },      // Dark Sea Green
-    ],
-};
+    { "calm": "#008000" },
+    { "at ease": "#3CB371" },
+    { "understood": "#4CAF50" },
+    { "respected": "#66CDAA" },
+    { "fulfilled": "#2E8B57" },
+    { "blissful": "#32CD32" },
+    { "excited": "#FFEA00" },
+    { "determined": "#FFEA00" },
+    { "successful": "#FFE135" },
+    { "amazed": "#F4D03F" },
+    { "inspired": "#F9E79F" },
+    { "empowered": "#F5E05B" },
+    { "good": "#9ACD32" },
+    { "thoughtful": "#7FFF00" },
+    { "appreciated": "#98FB98" },
+    { "supported": "#3CB371" },
+    { "loved": "#00FF7F" },
+    { "connected": "#20B2AA" },
+    { "energized": "#FFD700" },
+    { "eager": "#FFE135" },
+    { "enthusiastic": "#F0E68C" },
+    { "joyful": "#FFD700" },
+    { "productive": "#F4D03F" },
+    { "proud": "#F4D03F" },
+    { "relaxed": "#90EE90" },
+    { "chill": "#00FA9A" },
+    { "compassionate": "#2E8B57" },
+    { "included": "#66CDAA" },
+    { "valued": "#98FB98" },
+    { "grateful": "#8FBC8F" },
+    { "cheerful": "#FFEA00" },
+    { "curious": "#FFE135" },
+    { "upbeat": "#FFE135" },
+    { "happy": "#FFD700" },
+    { "motivated": "#FFE135" },
+    { "optimistic": "#FFD700" },
+    { "sympathetic": "#3CB371" },
+    { "comfortable": "#7CFC00" },
+    { "empathetic": "#98FB98" },
+    { "content": "#00FF7F" },
+    { "accepted": "#2E8B57" },
+    { "moved": "#66CDAA"},
+    { "free": "#FFFF00" },       // Yellow
+    { "bold": "#FFD700" },       // Gold
+    { "hopeful": "#FFFF00" },    // Lemon Chiffon
+    { "peaceful": "#FFFF00" },   // Cornsilk
+    { "confident": "#FFE135" },  // Banana Yellow
+    { "playful": "#FFE135" },
+
+    { "light-hearted": "#9ACD32" }, { "secure": "#00FF7F" }, { "open": "#20B2AA" }, { "adventurous": "#66CDAA" }, { "curious": "#98FB98" }, { "courageous": "#2E8B57" },
+
+        { "brave": "#FFD700" },       // Gold
+        { "centered": "#F0E68C" },    // Khaki
+        { "grounded": "#FFEA00" },    // Bright Yellow
+        { "mindful": "#FFEA00" },      // Cornsilk
+        { "thankful": "#FFE135" },     // Banana Yellow
+        { "encouraged": "#F5E05B" },   // Daffodil Yellow
+
+    { "uplifted": "#4CAF50" }, { "revitalized": "#66CDAA" }, { "reassured": "#98FB98" }, { "rejuvenated": "#00FF7F" }, { "invigorated": "#90EE90" }, { "focused": "#2E8B57" },
+
+    { "surprised": "#FFFF00" },
+    { "awe": "#FFD700" },
+    { "exhilarated": "#FDDA0D" },
+    { "thrilled": "#FFEA00" },
+    { "elated": "#FEBE10" },
+    { "ecstatic": "#F0E68C" }
+]
 
 
-export type Mood = keyof typeof colors;
+
+
+
+
+
+
+
