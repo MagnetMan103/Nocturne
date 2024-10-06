@@ -5,7 +5,7 @@ export default function MoodSelector() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-      <Text style={{    fontSize: 28, fontWeight: "semibold",
+      <Text style={{color: "white", fontSize: 28, fontWeight: "semibold",
       }}>Select your mood</Text>
       </View>
       <View style={styles.buttonGrid}>
@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",   // Center the items vertically
     width: "100%",              // Full width of the screen
     padding: 20,
-    flex: 1
+    flex: 1,
+    backgroundColor: 'black',   // Black background
   },
   header: {
     color: '#333',              // Dark grey for a modern look

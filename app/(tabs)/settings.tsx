@@ -31,8 +31,8 @@ export default function Settings() {
     return (
         <>
             {/* App Bar for the Explore Screen */}
-            <Appbar.Header>
-                <Appbar.Content title="Explore" />
+            <Appbar.Header style={{ backgroundColor: '#000' }}>
+                <Appbar.Content title="Settings" titleStyle={{ color: 'white' }} />
             </Appbar.Header>
 
             {/* Main Content of Explore Screen */}
@@ -57,15 +57,15 @@ export default function Settings() {
 
                 {/* Display selected genres */}
                 <View style={styles.selectedGenres}>
-                    {selectedGenres.length > 0 ? (
-                        selectedGenres.map((genre) => (
-                            <Text key={genre} style={styles.genre}>
-                                {genres.find((g) => g.value === genre)?.label}
-                            </Text>
-                        ))
-                    ) : (
-                        <Text>No genres selected</Text>
-                    )}
+                    {/*{selectedGenres.length > 0 ? (*/}
+                    {/*    selectedGenres.map((genre) => (*/}
+                    {/*        <Text key={genre} style={styles.genre}>*/}
+                    {/*            {genres.find((g) => g.value === genre)?.label}*/}
+                    {/*        </Text>*/}
+                    {/*    ))*/}
+                    {/*) : (*/}
+                    {/*    <Text>No genres selected</Text>*/}
+                    {/*)}*/}
                 </View>
 
                 {/* Song Length Slider */}
@@ -90,11 +90,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
+        backgroundColor: 'black'
     },
     label: {
         marginBottom: 10,
         fontSize: 16,
-        color: '#333',
+        color: '#fff',
     },
     dropdown: {
         marginBottom: 20,
@@ -112,6 +113,7 @@ const styles = StyleSheet.create({
     },
     selectedGenres: {
         marginTop: 20,
+        color: 'darkgray'
     },
     genre: {
         fontSize: 16,
