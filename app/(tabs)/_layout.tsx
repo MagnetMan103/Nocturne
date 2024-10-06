@@ -35,9 +35,19 @@ export default function TabLayout() {
       <Tabs.Screen
         name="mood"
         options={{
-          href:null
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="waveform"
+        options={{
+          title: 'Waveform',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'musical-notes' : 'musical-notes-outline'} color={color} />
+          ),
         }}
       />
     </Tabs>
   );
 }
+
