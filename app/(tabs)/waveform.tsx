@@ -2,34 +2,55 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, Button, Text } from 'react-native';
 import { Audio } from 'expo-av';
 import { WebView } from 'react-native-webview';
+import { Asset } from 'expo-asset';
 
-const SineWaveVisualizer = () => {
+const CircleWaveVisualizer = () => {
   const [sound, setSound] = useState<Audio.Sound | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0);
   const webviewRef = useRef<WebView>(null);
 
-  // Example remote MP3 file for testing
-  const audioUrl = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+  // Load the local MP3 file from the assets folder
+  useEffect(() => {
+    async function loadAudioAsset() {
+      const asset = Asset.fromModule(require('../../assets/example.mp3'));
+      await asset.downloadAsync();  // Ensure the asset is ready for playback
+      return asset.localUri;
+    }
+
+    loadAudioAsset().then((uri) => {
+      if (uri) {
+        // Set the audio file URI in the playSound function
+        playSound(uri);
+      } else {
+        console.error("Failed to load the audio asset.");
+      }
+    });
+  }, []);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let intervalId: NodeJS.Timeout;
+
     if (isPlaying && sound) {
-      interval = setInterval(async () => {
+      const updateVisualization = async () => {
         const status = await sound.getStatusAsync();
         if (status.isLoaded && status.isPlaying) {
-          const volumeLevel = Math.random();  // Replace with actual volume detection logic if available
-          setVolume(volumeLevel);  // Set volume to simulate real-time volume changes
+          const volumeLevel = Math.random();  // Simulating volume level
+          // More aggressive smoothing interpolation
+          setVolume((prevVolume) => prevVolume * 0.75 + volumeLevel * 0.25); // More responsive
           if (webviewRef.current) {
-            webviewRef.current.postMessage(JSON.stringify({ volume: volumeLevel }));
+            webviewRef.current.postMessage(JSON.stringify({ volume }));
           }
         }
-      }, 100);
-    }
-    return () => clearInterval(interval);
-  }, [isPlaying, sound]);
+      };
 
-  async function playSound() {
+      intervalId = setInterval(updateVisualization, 60); // Refresh rate at 60ms
+    }
+
+    return () => clearInterval(intervalId); // Cleanup on stop
+  }, [isPlaying, sound, volume]);
+
+  async function playSound(audioUri?: string) {
     if (sound) {
       if (isPlaying) {
         await sound.pauseAsync();
@@ -38,22 +59,22 @@ const SineWaveVisualizer = () => {
         await sound.playAsync();
         setIsPlaying(true);
       }
-    } else {
-      const { sound: newSound } = await Audio.Sound.createAsync({ uri: audioUrl });
+    } else if (audioUri) {
+      const { sound: newSound } = await Audio.Sound.createAsync({ uri: audioUri });
       setSound(newSound);
       await newSound.playAsync();
       setIsPlaying(true);
     }
   }
 
-  // HTML content with sine wave animation
+  // HTML content with enhanced concentric circles for dramatic expansion and contraction
   const webviewContent = `
     <!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Sine Wave Visualizer</title>
+      <title>Circle Wave Visualizer</title>
       <style>
         body, html {
           margin: 0;
@@ -70,15 +91,12 @@ const SineWaveVisualizer = () => {
       </style>
     </head>
     <body>
-      <canvas id="sinewave"></canvas>
+      <canvas id="circlewave"></canvas>
       <script>
-        const canvas = document.getElementById('sinewave');
+        const canvas = document.getElementById('circlewave');
         const ctx = canvas.getContext('2d');
         let width, height;
         let volume = 0.5;
-        const amplitude = 50;
-        const frequency = 0.05;
-        let t = 0;
 
         function resizeCanvas() {
           width = window.innerWidth;
@@ -87,31 +105,44 @@ const SineWaveVisualizer = () => {
           canvas.height = height;
         }
 
-        function drawSineWave() {
+        function drawConcentricCircles() {
           ctx.clearRect(0, 0, width, height);
-          ctx.beginPath();
-          ctx.moveTo(0, height / 2);
-          for (let x = 0; x < width; x++) {
-            const y = height / 2 + Math.sin(x * frequency + t) * amplitude * volume;
-            ctx.lineTo(x, y);
+
+          const centerX = width / 2;
+          const centerY = height / 2;
+          const maxRadius = Math.min(width, height) / 1.5;   // Increased max radius to be larger
+          const numCircles = 7;  // Number of concentric circles
+          
+          // Adjust the spacing between circles based on volume
+          const baseSpacing = maxRadius / numCircles;
+          const breathingFactor = volume * 1.5 + 0.5;  // Dramatic breathing effect (adjusted)
+
+          for (let i = 0; i < numCircles; i++) {
+            // As the volume increases, inner circles grow more, and outer circles grow less
+            const dynamicSpacing = baseSpacing * (1 - i / numCircles) * breathingFactor;
+            const radius = (i + 1) * dynamicSpacing;
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2, false);
+            ctx.strokeStyle = 'violet';
+            ctx.lineWidth = 4;  // Increased line width for better visibility
+            ctx.stroke();
           }
-          ctx.strokeStyle = 'violet';
-          ctx.lineWidth = 4;
-          ctx.stroke();
-          t += 0.05;
-          requestAnimationFrame(drawSineWave);
+
+          requestAnimationFrame(drawConcentricCircles);
         }
 
         window.addEventListener('resize', resizeCanvas);
         window.addEventListener('message', (event) => {
           const data = JSON.parse(event.data);
           if (data.volume !== undefined) {
-            volume = data.volume;  // Update volume from React Native
+            // More responsive interpolation
+            volume = volume * 0.75 + data.volume * 0.25;  // Slightly more aggressive interpolation
           }
         });
 
         resizeCanvas();
-        drawSineWave();
+        drawConcentricCircles();
       </script>
     </body>
     </html>
@@ -130,11 +161,11 @@ const SineWaveVisualizer = () => {
         />
       </View>
       <View style={{ padding: 20 }}>
-        <Button title={isPlaying ? "Pause Sound" : "Play Sound"} onPress={playSound} />
+        <Button title={isPlaying ? "Pause Sound" : "Play Sound"} onPress={() => playSound()} />
         <Text>{isPlaying ? "Playing..." : "Paused"}</Text>
       </View>
     </View>
   );
 };
 
-export default SineWaveVisualizer;
+export default CircleWaveVisualizer;

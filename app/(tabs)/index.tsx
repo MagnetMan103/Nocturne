@@ -1,6 +1,6 @@
+import React from 'react'; // Add this line
 import { View, Text, StyleSheet } from 'react-native';
 import MoodSelector from "@/components/MoodPage/MoodSelector";
-
 
 export default function HomeScreen() {
   return (
@@ -28,3 +28,4 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
+
