@@ -10,10 +10,16 @@ type Color = `#${string}`;
 
 export default function Mood() {
     const [text, setText] = useState("");
+    const [enabled, setEnabled] = useState(true);
+    const [genState, setGenState] = useState("Generate");
     const params = useLocalSearchParams<{ mood: string }>();
     // @ts-ignore
     const myColor = getColor(params.mood) as Color;
 
+    const onPress = () => {
+        setEnabled(false);
+        setGenState("Generating...");
+    }
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'black' }}>
             <LinearGradient colors={['rgba(0,0,0,0.3)', 'transparent']} style={{ bottom: 100, width: 200, height: 200, borderRadius: 100, backgroundColor: myColor,
@@ -28,8 +34,11 @@ export default function Mood() {
             />
             <Button icon="send" mode="contained"
                     style={{ marginTop: 30}}
-                    onPress={() => console.log(text)}>
-                Generate
+                    onPress={onPress}
+                    disabled={!enabled}
+                    theme={{ colors: {surfaceDisabled: '#E0B0FF' } }}
+            >
+                {genState}
             </Button>
         </View>
     );

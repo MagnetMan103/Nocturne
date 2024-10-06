@@ -26,6 +26,8 @@ export default function MoodGrid() {
             alwaysBounceVertical={false}
             alwaysBounceHorizontal={false}
             decelerationRate="normal" // Disable momentum scrolling
+            minimumZoomScale={0.5}
+            maximumZoomScale={1.5}
 
         >
             <View
@@ -49,11 +51,6 @@ export default function MoodGrid() {
                         })}
                     </View>
                 ))}
-                <Pressable style={{position: "absolute", left: 0, bottom: 2050, padding: 5, height:50, width: 50, margin: 30,
-                    borderRadius: 100, justifyContent: 'center', alignItems: 'center', zIndex: 100}}
-                           onPress={() => router.push('/')}>
-                    <Ionicons name="arrow-back" size={50} color="white" />
-                </Pressable>
             </View>
         </ScrollView>
     );
