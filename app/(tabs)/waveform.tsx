@@ -97,6 +97,7 @@ const CircleWaveVisualizer = () => {
         const ctx = canvas.getContext('2d');
         let width, height;
         let volume = 0.5;
+        let rotationAngle = 0; // Add a variable to track rotation
 
         function resizeCanvas() {
           width = window.innerWidth;
@@ -119,19 +120,26 @@ const CircleWaveVisualizer = () => {
           const sineFrequency = 10; // Frequency of the sinusoidal wave
           const sineAmplitude = 10 * volume;  // Amplitude of the sinusoidal distortion
 
+          // Increment the rotation angle for continuous rotation
+          rotationAngle += 0.01; // Adjust rotation speed if necessary
+
           for (let i = 0; i < numCircles; i++) {
-            // As the volume increases, inner waves grow more, and outer waves grow less
             const dynamicSpacing = baseSpacing * (1 - i / numCircles) * breathingFactor;
             const radius = (i + 1) * dynamicSpacing;
 
             ctx.beginPath();
             for (let angle = 0; angle <= Math.PI * 2; angle += 0.01) {
-              const x = centerX + (radius + Math.sin(angle * sineFrequency) * sineAmplitude) * Math.cos(angle);
-              const y = centerY + (radius + Math.sin(angle * sineFrequency) * sineAmplitude) * Math.sin(angle);
+              const xUnrotated = centerX + (radius + Math.sin(angle * sineFrequency) * sineAmplitude) * Math.cos(angle);
+              const yUnrotated = centerY + (radius + Math.sin(angle * sineFrequency) * sineAmplitude) * Math.sin(angle);
+              
+              // Apply rotation transformation
+              const rotatedX = centerX + (xUnrotated - centerX) * Math.cos(rotationAngle) - (yUnrotated - centerY) * Math.sin(rotationAngle);
+              const rotatedY = centerY + (xUnrotated - centerX) * Math.sin(rotationAngle) + (yUnrotated - centerY) * Math.cos(rotationAngle);
+
               if (angle === 0) {
-                ctx.moveTo(x, y);
+                ctx.moveTo(rotatedX, rotatedY);
               } else {
-                ctx.lineTo(x, y);
+                ctx.lineTo(rotatedX, rotatedY);
               }
             }
 
